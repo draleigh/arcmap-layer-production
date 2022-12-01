@@ -100,7 +100,7 @@ print('Forest stand dataset will now be refined according to species type and ag
 
 # Populate 'StangeAge' field values
 block_start = time.time()
-with arcpy.da.UpdateCursor('FSI_Reduced', ['STAND_AGE', 'SURVEY_YR', 'StangeAge']) as cursor:                # set up a SearchCursor to iterate over the 'FSI_Reduced' layer according to the fields 'STAND_AGE', 'SURVEY_YR', and 'StangeAge'
+with arcpy.da.UpdateCursor('FSI_Reduced', ['STAND_AGE', 'SURVEY_YR', 'StangeAge']) as cursor:                   # set up an UpdateCursor to iterate over the 'FSI_Reduced' layer according to the fields 'STAND_AGE', 'SURVEY_YR', and 'StangeAge'
     for row in cursor:                                                                                          # set up a FOR loop to investigate each row within the cursor
         if row[1] > 0:                                                                                          # set up an IF statement to evaluate whether the second value in the row of specified fields ('SURVEY_YR') is greater than 0;
             row[2] = (int(today_year_str) - row[1] + row[0])                                                    # prompt the 'StangeAge' value to be the calculated value of the 'STAND_AGE' added to 'SURVEY_YR' which is subtracted from the current year's value
@@ -110,7 +110,7 @@ with arcpy.da.UpdateCursor('FSI_Reduced', ['STAND_AGE', 'SURVEY_YR', 'StangeAge'
 
 # Populate 'Groupings' field values
 
-with arcpy.da.UpdateCursor('FSI_Reduced', ['MN_CTYPE', 'StangeAge', 'Groupings']) as cursor:                 # set up a SearchCursor to iterate over the 'FSI_Reduced' layer according to the fields 'MN_CTYPE', 'StangeAge', and 'Groupings'
+with arcpy.da.UpdateCursor('FSI_Reduced', ['MN_CTYPE', 'StangeAge', 'Groupings']) as cursor:                    # set up an UpdateCursor to iterate over the 'FSI_Reduced' layer according to the fields 'MN_CTYPE', 'StangeAge', and 'Groupings'
     for row in cursor:                                                                                          # set up a FOR loop to investigate each row within the cursor
         if (row[0] == 12 and row[1] < 20) or (row[0] == 13 and row[1] < 20) or (row[0] == 14 and row[1] < 20) or (row[0] == 82 and row[1] < 20): # set up an IF statement that evaluates the polygons within 'FSI_Reduced' according to the 'MN_CTYPE' and 'StangeAge'
             row[2] = 'Young Forest'                                                                             # if the ELIF statement evaluates to true, populate the third field with 'Young Forest' if the youngest polygons are found to match the 'MN_CTYPE' values, as well

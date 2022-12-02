@@ -39,7 +39,7 @@ today_full_str = today_year_str + today_month_str + today_day_str               
 
 # Define Data Locations and Other Variables
 Lakeshore_GDB = r"*folderpath*\Lakeshore_Parcel_Ownership_Analysis.gdb"                         # define the location of the geodatabase to which you'll send the products of the script
-Lakes = r"*folderpath\dnr_hydro_features_all"                                                   # define the location of the feature class that you'll pull the selecting features from
+Lakes = r"*folderpath*\dnr_hydro_features_all"                                                   # define the location of the feature class that you'll pull the selecting features from
 Parcels = r"*folderpath*\plan_parcels_minnesota"                                                # define the location of the feature class that you'll ultimately select parcels from
 Input = r"*folderpath*\Test_Lakes.xlsx"                                                         # define the location of the file that holds the lake ID values
 Parcel_Selection = os.path.join(Lakeshore_GDB, 'Parcel_Selection_' + today_full_str)            # define the file path of the feature class that will be produced

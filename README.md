@@ -58,3 +58,33 @@ Solution:
 
     3. Set up an expression that will be used to query the lake feature class. This query selects lakes with matching lake ID values, then uses those selected lakes to select all parcels that intersect with those lakes (and produces a final feature class from the ultimate parcel selection).
         A) The final step for "INTERSECT" with the lake boundaries can be adjusted if the user wishes to include parcels at a specific distance beyond the lake boundary. 
+
+
+
+#_______________________________________________________________________________________________________________________
+
+
+"append_TRS_values_to_parcel_data.py" (arcpy,os,time,datetime,copy)
+
+Issue:
+
+I am tasked annually with collecting, consolidating, and merging parcel data according to ownership names and address information. Colleagues determined that it would be helpful to know the Township, Range, and Section (TRS) values from Public Land Survey (PLS) polygons that overlap with all of these parcel polygons. Instead of manually entering the information or joining the data manually, I decided to write a script that would append the information to a new field in the attribute table of the parcel dataset.
+
+Solution: 
+
+    1. Import modules and assign variables to file and geodatabase paths.
+
+    2. Adjust the size of parcels that will receive TRS data. This can be adjusted prior to running the script (or taken out entirely).
+
+    3. Add a new field ['TRS'] to hold the Township, Range, and Section values.
+
+    4. The script processes a series of nested cursor classes.
+        Begin nested cursor series (this code block begins an iteration over all polygons within the 'TRS_Add' layer):
+        A) A 'TRS_Add' polygon is selected based on an iterable expression
+        B) This selected polygon is used to select all intersecting polygons within the 'PLS_Section' layer
+        C) A FOR loop produces a string of all values from the 'TRS_SEARCH' field within the 'PLS_Section' polygons
+            - This string is saved to a variable
+        D) An UpdateCursor class is called to update the 'TRS' field within the 'TRS_Add' polygon from the first step
+        E) The initial loop repeats until it completes all rows of the initial SearchCursor
+
+    5. The final product comprises the initial parcel data feature class with an additional field which contains TRS values.

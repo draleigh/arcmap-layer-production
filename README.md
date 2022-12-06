@@ -22,11 +22,31 @@ Solution:
 #___________________________________________________________________________________________________________________________________
 
 
+"first_nations_ownership_layer_production.py" (Packages Required: os,arcpy,time,datetime,copy,openpyxl)
+
+Issue: 
+
+I produce an annual batch of maps for members of the public that display area for hunting in Minnesota. The maps display walkable areas on public land, but often include public area boundaries that border parcels owned by First Nations/Native American tribal entities. To ensure that members of the public do not trespass, I am required to carefully assess parcel data to confirm that private land is prominently displayed. 
+
+However, the ocular inspection of all parcels on 250+ maps is laborious, and I wanted to find a more effective way to display First Nations land without having to conduct manual inspections of parcels across all of the mapped areas. It is clear that the variability of landowner names presents a challenge to find a concise collection of names, but some public ownership titles (e.g. "Indian Land", "Indian Reservation", "U S Indian Land", etc.) will be more consistent across broader stretches of territory. I determined to set up a script that would incorporate known terms/keywords for First Nations ownership, and then produce a layer which selected all parcels that contained the keywords that had been prepared for the script in an Excel workbook. The workbook can be adjusted over time and easily sorted when necessary to provide a dynamic input file for successive iterations of this layer's production.   
+
+Solution:
+
+    1. Import modules and assign variables to file and geodatabase paths.
+
+    2. Confirm all selector features which will be used to select parcel data, then iterate over all selector features to make a complete list. Produce a layer of selected parcels within a specified distance of the selector features. 
+
+    3. Open the Excel workbook which contains the terms that have been collected for First Nations ownership, then iterate over the workbook sheet to find the appropriate entries to collect a list of 'keyWords'.
+
+    4. Set up a series of expressions that will be used to query the parcels whose owners are sought after. Apply the combined expression to the selected parcels, then dissolve the remaining parcels to produce a final layer that can be utilized for map production.
+
+#___________________________________________________________________________________________________________________________________
+
 "private_ownership_layer_production.py" (os,arcpy,time,datetime,copy,openpyxl)
 
 Issue:
 
-I am tasked (on an annual basis) with producing maps for locations all over the state at which people can hunt or recreate. The maps display walkable areas on public land, but often include public area boundaries that border private property. To ensure that members of the public do not trespass, I am required to carefully assess parcel data to confirm that private land is prominently displayed. 
+I produce an annual batch of maps for members of the public that display areas for hunting in Minnesota. The maps display walkable areas on public land, but often include public area boundaries that border private property. To ensure that members of the public do not trespass, I am required to carefully assess parcel data to confirm that private land is prominently displayed. 
 
 However, the ocular inspection of all parcels on 250+ maps is laborious, and I wanted to find a more effective way to display private land without having to conduct manual inspections of parcels across all of the mapped areas. It is clear that the variability of private landowner names presents a challenge to find a concise collection of names, but some public ownership titles (e.g. "State Government", "County Government", "Yurok Tribe", etc.) will be more consistent across broader stretches of territory. I determined to set up a script that would incorporate known terms/keywords for public and First Nations ownership, and then produce a layer which selected all parcels except those that contained those entries. The workbook can be adjusted over time and easily sorted when necessary to provide a dynamic input file for successive iterations of this layer's production.   
 
